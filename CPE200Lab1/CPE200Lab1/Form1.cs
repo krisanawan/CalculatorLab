@@ -16,6 +16,7 @@ namespace CPE200Lab1
         string two = null;
         bool SetOne = false;
         bool SetTwo = false;
+        bool SetThree = false;
         string calculation=null;
         string answer=null;
         
@@ -31,19 +32,16 @@ namespace CPE200Lab1
             Button btn = (Button)sender;
 
             if (lblDisplay.Text == "0")
-            {
+            { 
                 lblDisplay.Text = "";
             }
-            if(SetOne == true && SetTwo == false)
+            if(SetOne == true )
             {
                 lblDisplay.Text = "";
-                SetTwo = true;
+                SetOne = false;
+
             }
-            if(SetOne == true && SetTwo == true)
-            {
-                lblDisplay.Text = "";
-                SetTwo = false;
-            }
+           
             if (lblDisplay.Text.Length < 8)
             {
                 lblDisplay.Text += btn.Text;
@@ -56,6 +54,7 @@ namespace CPE200Lab1
            
             one = lblDisplay.Text;
             SetOne = true;
+            SetTwo = true;
             if ((Button)sender == btnPlus)
             {
                 calculation = "+";
@@ -94,7 +93,7 @@ namespace CPE200Lab1
             {
                 answer = (float.Parse(one) / float.Parse(two)).ToString();
             }
-            
+            SetTwo = false;
             lblDisplay.Text = answer;
         }
 
@@ -117,16 +116,36 @@ namespace CPE200Lab1
 
         private void btnPercent_Click(object sender, EventArgs e)
         {
-           
-                if (calculation == "+" || calculation == "-" || calculation == "*" || calculation == "/")
-                {
-                    lblDisplay.Text= ((float.Parse(one) * float.Parse(two)) / 100).ToString();
+            two = lblDisplay.Text;
+            if (calculation == "+")
+                {   
+                    lblDisplay.Text= (float.Parse(one) + (float.Parse(two) * float.Parse(one) / 100)).ToString();
                 }
+                if (calculation == "-")
+                {
+                    lblDisplay.Text = (float.Parse(one) - (float.Parse(two) * float.Parse(one) / 100)).ToString();
+                }
+                if (calculation == "*")
+                {
+                    lblDisplay.Text = (float.Parse(one) * (float.Parse(two) * float.Parse(one) / 100)).ToString();
+            }
+                if (calculation == "/")
+                {
+                     lblDisplay.Text = (float.Parse(one) / (float.Parse(two) * float.Parse(one) / 100)).ToString();
+            }
                 else
                 {
                     lblDisplay.Text = (float.Parse(lblDisplay.Text) / 100).ToString();
                 }
+        }
+
+        private void btnDot_Click(object sender, EventArgs e)
+        {
+            if (lblDisplay.Text != ".")
+            {
+                lblDisplay.Text = lblDisplay.Text + ".";
             }
         }
+    }
     }
 
